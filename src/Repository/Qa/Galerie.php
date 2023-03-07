@@ -24,9 +24,7 @@ class Galerie{
         $cmd->execute();
     }
 
-    public function delGalerie(string $id){
-        //le retrouver
-        $id=substr($id,strpos($id,'_')+1);
+    public function delGalerie(int $id){
         //delete
         $cmd=$this->pdo->prepare("delete from galerie where id=?;");
         $cmd->bindParam(1,$id);
@@ -44,6 +42,7 @@ class Galerie{
         }
         return $galerie;
     }
+    
     public function getGalerie(): array{
         $cmd=$this->pdo->prepare('select * from galerie order by rand() limit 1;');
         $cmd->execute();

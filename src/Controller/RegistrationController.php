@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Repository\User\User;
 use App\Service\CreateToken;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
-class RegistrationController extends AbstractController {
-
-    public function VerifyEmail($token, CreateToken $ctk, User $user): Response{
+class RegistrationController extends AbstractController 
+{
+    #[Route('/verifyToken/{token}',name:'VerifyEmail')]
+    public function VerifyEmail($token, CreateToken $ctk, User $user): RedirectResponse{
 
         if($ctk->isValid($token)){
             $user_id=$ctk->getId($token);

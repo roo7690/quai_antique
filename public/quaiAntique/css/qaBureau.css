@@ -1,0 +1,61 @@
+#réducteur-space{
+    position:absolute;
+    top:120px;
+}
+.qatitle.tilteBureau{
+    color:#05445E;
+}
+/*utilities*/
+.barre{
+    width:100%;height: 2px;
+    background-color: #05445E;
+    margin-bottom: 5px;
+}
+.message-user:hover{
+    color:#75E6DA;
+}
+
+/*galerie*/
+.burImgGalerieBlock{
+    width:250px;height:200px;
+    overflow: hidden;
+    border-radius: 10px;
+    padding:0;
+    margin:10px;
+    box-shadow: 2px 2px 4px black;
+}
+.burImgGalerie{
+    border-radius: 10px;
+    width:250px;height:200px;
+}
+.burEditGalerie{
+    opacity: 0;
+    background-color: hsla(0,0%,0%,0.8);
+    height:200px;
+    transform: translatey(-100%);
+    align-items: center;
+    transition: all 0.5s;
+}
+.burEditGalerie:hover{
+    opacity: 1;
+}
+
+/*carte*/
+.burCarte{
+    padding:3px;
+    background-color: hsla(198, 90%, 19%,0.5);
+    box-shadow: 2px 2px 4px black;
+}
+.burCarte.burCarteTitle{background-color:#75E6DA;}
+
+/*message day img*/
+#img-resto.bur{
+    transform: translate(0,0);
+    opacity: 1;
+}
+/*notif*/
+#btnNotif{
+    width:2px;height: 2px;
+    position: fixed;
+    top:120vh;
+}

@@ -41,7 +41,7 @@ export default function (props){
             response.json().then((Creneaux)=>{
                 let creneauxDay=[];
                 Creneaux.forEach((cre)=>{
-                    if(cre.week===day&&cre.reserver<tables){
+                    if(cre.WEEK===day&&cre.reserver<tables){
                         creneauxDay.push(cre);
                     }
                 });

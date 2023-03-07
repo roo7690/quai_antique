@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mailer;
+namespace App\Service;
 
 use App\Service\CreateToken;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
-class SendMail{
-
+class SendMail
+{
     public function confirmEmail(MailerInterface $mailer,int $id,string $email){
         $token=(new CreateToken($id))->generateToken();
         $mail=(new TemplatedEmail())

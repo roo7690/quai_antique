@@ -25,9 +25,7 @@ class Menu {
         $cmd->execute();
     }
 
-    public function delMenu(string $id){
-        //retrouve
-        $id=substr($id,strpos($id,'_')+1);
+    public function delMenu(int $id){
         //delete
         $cmd=$this->pdo->prepare("delete from menu where id=?;");
         $cmd->bindParam(1,$id);

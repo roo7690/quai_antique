@@ -30,9 +30,7 @@ class Admin extends User{
         $cmd->execute();
     }
 
-    public function delAdmin(string $id){
-        //retrouve l'id
-        $id=substr($id,strpos($id,'_')+1);
+    public function delAdmin(int $id){
         //delete
         $cmd=$this->pdo->prepare("delete from admin where id_admin=?;");
         $cmd->bindParam(1,$id);

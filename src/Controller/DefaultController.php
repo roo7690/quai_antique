@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Form\Inscrip_Connexion;
 use App\Form\Reserver;
-use App\Mailer\SendMail;
+use App\Service\SendMail;
 use App\Repository\Authentification\Authentification;
 use App\Repository\HoraireController\HoraireController;
 use App\Repository\Reservation\Reservation;
@@ -13,12 +13,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 
-class DefaultController extends AbstractController{
-
-    public function Accueil(Request $request,MailerInterface $Mailer): Response{
-
+class DefaultController extends AbstractController
+{
+    #[Route('/',name:'Accueil')]
+    public function Accueil(Request $request,MailerInterface $Mailer): Response
+    {
         //récupération des avis
         $info=new User();
         $arc=$info->getNote();
@@ -35,15 +37,16 @@ class DefaultController extends AbstractController{
             (new HoraireController)->getCreneaux();
         }
 
-        return $this->render('pagesPrincipales/Accueil.html.twig',[
+        return $this->render('home/Accueil.html.twig',[
             "arc"=>$arc,
             "Avis"=>$Avis,
             "reservation"=>$reservation->createView()
         ]);
     }
 
-    public function Carte(Request $request,MailerInterface $Mailer): Response{
-
+    #[Route('/carte',name:'Carte')]
+    public function Carte(Request $request,MailerInterface $Mailer): Response
+    {
         //réservation
         $reservation=$this->createForm(Reserver::class);
         $reservation->handleRequest($request);
@@ -55,11 +58,12 @@ class DefaultController extends AbstractController{
             (new HoraireController)->getCreneaux();
         }
 
-        return $this->render('pagesPrincipales/Carte.html.twig',[
+        return $this->render('home/Carte.html.twig',[
             "reservation"=>$reservation->createView()
         ]);
     }
 
+    #[Route('/form/{action}',name:'Formulaire')]
     public function Formulaire(Request $request,MailerInterface $Mailer,string $action): Response{
         //création du formulaire
         $form= $this->createForm(Inscrip_Connexion::class);
@@ -83,7 +87,7 @@ class DefaultController extends AbstractController{
             $error='vide';
         }
 
-        return $this->render('Administration/Form.html.twig',[
+        return $this->render('admin/Form.html.twig',[
             "action"=>$action,
             "form"=>$form->createView(),
             "error"=>$error

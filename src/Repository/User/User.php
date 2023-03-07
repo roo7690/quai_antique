@@ -54,9 +54,8 @@ class User{
         $cmd->execute();
     }
 
-    public function delUser(string $id){
-        //retrouve l'id
-        $id=substr($id,strpos($id,'_')+1);
+    public function delUser(int $id)
+    {
         //supprime user
         $cmd=$this->pdo->prepare("delete from user where id=?;");
         $cmd->bindParam(1,$id);
@@ -74,6 +73,19 @@ class User{
         $response=$cmd->fetch(PDO::FETCH_ASSOC);
 
         return $response['email'];
+    }
+
+    public function isUser(string $email): bool
+    {
+        $cmd=$this->pdo->prepare("select id from user where email=?;");
+        $cmd->bindParam(1,$email);
+        $cmd->execute();
+        $user=$cmd->fetch(PDO::FETCH_ASSOC);
+
+        $response=true;
+        if(!$user){$response=false;}
+
+        return $response;
     }
 
     public function getUser(string $email): array{
@@ -108,7 +120,11 @@ class User{
         foreach($Notes as $item){
             $note+=$item['note'];
         }
-        $note=($note/count($Notes))/5;
+        $note=1;
+        if(count($Notes)!=0){
+            $note=($note/count($Notes))/5;
+        }
+        
         return Note($note);
     }
 

@@ -2,14 +2,16 @@
 
 namespace App\Repository\Authentification;
 
-use App\Mailer\SendMail;
+use App\Service\SendMail;
 use App\Repository\User\Admin;
 use App\Repository\User\User;
 use PDO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class Authentification extends abstractController{
+class Authentification extends abstractController
+{
     private PDO $pdo;
     private $hasherUser='sha1';
     private $hasherAdmin='ripemd160';
@@ -18,13 +20,14 @@ class Authentification extends abstractController{
         $this->pdo= new PDO($_ENV['dsn'],$_ENV['user'],$_ENV['password']);
     }
 
-    public function Connexion(array $data){
+    public function Connexion(array $data): RedirectResponse
+    {
         $cmd=$this->pdo->prepare("select email,password from user where email=?;");
         $cmd->bindParam(1,$data['email']);
         $cmd->execute();
         $result=$cmd->fetch(PDO::FETCH_ASSOC);
         if(!$result){
-            $this->redirectToRoute('/form/connexion',['error'=>0]);
+            return $this->redirect('/form/connexion?error=0');
         }else{
             $user=null;
             $password=[
@@ -36,7 +39,7 @@ class Authentification extends abstractController{
             }elseif($password[1]==$result['password']){
                 $user=(new Admin())->getUser($data['email']);
             }else{
-                $this->redirectToRoute('/form/connexion',['error'=>0]);
+                return $this->redirect('/form/connexion?error=0');
             }
             if(!isset($_SESSION)){
                 session_start();
@@ -45,13 +48,14 @@ class Authentification extends abstractController{
         }
     }
 
-    public function Inscription(MailerInterface $Mailer,array $data){
+    public function Inscription(MailerInterface $Mailer,array $data): RedirectResponse
+    {
         $cmd=$this->pdo->prepare("select email,password from user where email=?;");
         $cmd->bindParam(1,$data['email']);
         $cmd->execute();
         $result=$cmd->fetch(PDO::FETCH_ASSOC);
         if($result){
-            $this->redirectToRoute('/form/inscription',['error'=>1]);
+            return $this->redirect('/form/inscription?error=1');
         }else{
             $password=hash($this->hasherUser,$data['password']);
             $user=new User($data['firstname'],$data['lastname'],$data['email'],$password);

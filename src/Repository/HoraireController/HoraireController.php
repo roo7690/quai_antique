@@ -7,18 +7,21 @@ use PDO;
 class HoraireController{
     private PDO $pdo;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->pdo= new PDO($_ENV['dsn'],$_ENV['user'],$_ENV['password']);
     }
 
-    public function getHoraire(): array{
+    public function getHoraire(): array
+    {
         //["date"=>"...","midi"=>"...","soir"=>"..."]
         $cmd=$this->pdo->prepare('select date,midi,soir,ordre from horaire order by ordre;');
         $cmd->execute();
         return $cmd->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function changeHoraire(array $hour){
+    public function changeHoraire(array $hour)
+    {
         //changer les horaires
         for($date=1; $date<8; $date++){
             $cmd=$this->pdo->prepare('update horaire set midi=?, soir=? where ordre=?;');
@@ -28,7 +31,8 @@ class HoraireController{
             $cmd->execute();
         }
     }
-    public function changeCreneaux(){
+    public function changeCreneaux()
+    {
         //changer les créneaux de réservation
         //supprimer les creneaux actuelles
         $cmd=$this->pdo->prepare('delete from creneau;');
@@ -41,7 +45,8 @@ class HoraireController{
         }
     }
 
-    public function setCreneaux(int $date,bool $DeleteJourActuel,int $week=15){
+    public function setCreneaux(int $date,bool $DeleteJourActuel,int $week=15)
+    {
         //récupérer l'horaire du jour
         $cmd=$this->pdo->prepare('select midi,soir from horaire where ordre=?;');
         $cmd->bindParam(1,$date);
@@ -81,7 +86,8 @@ class HoraireController{
         }
     }
 
-    private function createCreneaux(array $hour): array{
+    private function createCreneaux(array $hour): array
+    {
         $Creneaux=[];//retourne un tableau contenant les crenaux
         //déterminons le temps d'ouverture en minute
         $tempMidi=($hour['midi']['hclose']*60+$hour['midi']['minclose'])-($hour['midi']['hopen']*60+$hour['midi']['minopen']);
@@ -117,13 +123,16 @@ class HoraireController{
         return $Creneaux;
     }
 
-    public function getCreneaux(){
+    public function getCreneaux(bool $chg_path=false)
+    {
         //récupérer les creneaux
         $cmd=$this->pdo->prepare('select * from creneau;');
         $cmd->execute();
         //Stockage en fichier json
         $creneaux=json_encode($cmd->fetchAll(PDO::FETCH_ASSOC));
-        $dataCreneaux=fopen('quaiAntique/data/creneaux.json','w');
+        $path='quaiAntique/data/creneaux.json';
+        if($chg_path){$path='./public/quaiAntique/data/creneaux.json';}
+        $dataCreneaux=fopen($path,'w');
         fwrite($dataCreneaux,$creneaux);
         fclose($dataCreneaux);
     }

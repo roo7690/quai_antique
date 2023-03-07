@@ -27,9 +27,7 @@ class Produit{
         $cmd->execute();
     }
 
-    public function delProduit(string $id){
-        //le retrouver
-        $id=substr($id,strpos($id,'_')+1);
+    public function delProduit(int $id){
         //delete
         $cmd=$this->pdo->prepare("delete from produit where id=?;");
         $cmd->bindParam(1,$id);

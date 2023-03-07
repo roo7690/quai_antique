@@ -57,9 +57,9 @@
                                         <li class="dropdown-item qaNav" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#gestion_compte">&nbsp; Gestion du Compte</li>
                                         <li class="dropdown-item"><a href="/form/connexion" class="nav-link qaNav">Changer de Compte</a></li>
                                         {% if user.droitNote==0 %}
-                                            <li class="dropdown-item"><a href="/Bureau" class="nav-link qaNav">Bureau</a></li>
+                                            <li class="dropdown-item"><a href="/admin" class="nav-link qaNav">Bureau</a></li>
                                         {% endif %}
-                                        <li class="dropdown-item"><a href="{{ asset(path.userAction) }}Deconnexion.php" class="nav-link qaNav">Déconnexion</a></li>
+                                        <li class="dropdown-item"><a href="/deconnexion" class="nav-link qaNav">Déconnexion</a></li>
                                     </ul>
                                 {% else %}
                                     <a href="/form/connexion">

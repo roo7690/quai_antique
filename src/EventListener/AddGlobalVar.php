@@ -13,7 +13,8 @@ use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Twig\Environment;
 
-class AddGlobalVar {
+class AddGlobalVar
+{
     private $user,$twig,$path,$galerie,$produit,$menu,$horaire;
 
     public function __construct(Environment $twig,Galerie $galerie,Produit $produit,Menu $menu,HoraireController $horaire)
@@ -32,12 +33,11 @@ class AddGlobalVar {
             "imgGalerie"=>((new PathPackage('img/galerie/',new EmptyVersionStrategy()))->getUrl('')),
             "imgMenu"=>((new PathPackage('img/menu/',new EmptyVersionStrategy()))->getUrl('')),
             "imgConstant"=>((new PathPackage('img/constant/',new EmptyVersionStrategy()))->getUrl('')),
-            "userAction"=>((new PathPackage('bundle/UserAction/',new EmptyVersionStrategy()))->geturl('')),
-            "adminAction"=>((new PathPackage('bundle/AdminAction/',new EmptyVersionStrategy()))->geturl(''))
         ];
     }
 
-    public function onKernelController(){
+    public function onKernelController()
+    {
         //Détection de la connexion : gestion statut user
         if(!isset($_SESSION)){
             session_start();
