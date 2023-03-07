@@ -1,0 +1,20 @@
+<div id="menu" class="{{ descente }} bg-transparent">
+    <div><div {{ react_component('title/Menu') }} ></div></div>
+    <div class="container-fluid">
+        {% for menu in Menu %}
+            <div class="row carte p-2">
+                <div class="text-center qatitleProduit">
+                    {{ menu.title }}
+                </div>
+                <div class="row">
+                    <div class="col-8 text-start qatext">
+                        {{ menu.description }}
+                    </div>
+                    <div class="col-4 text-center qaPrix">
+                        {{ menu.prix }} €
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
