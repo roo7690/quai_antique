@@ -4,7 +4,7 @@ export default function (){
     const [msg,setMsg]=useState(null);
 
     useEffect(()=>{
-        fetch('quaiAntique/data/msg.json').then((res)=>{res.json().then((message)=>{
+        fetch('../quaiAntique/data/msg.json').then((res)=>{res.json().then((message)=>{
             setMsg(message[0].text);
         })});
     });
@@ -12,7 +12,7 @@ export default function (){
     return (
         <React.Fragment>
             <div className="col-md m-2">
-                <img id="img-resto" src="img/msg/imgMsg.jpg"
+                <img id="img-resto" src="../img/msg/imgMsg.jpg"
                      className="h-100 w-100 bur" alt="resto en image"/>
             </div>
             <div className="col-md m-2 p-5 message">

@@ -55,11 +55,11 @@ class Produit{
         $cmd->execute();
         $response=$cmd->fetchAll(PDO::FETCH_ASSOC);
         foreach($response as $item){
-            if($item['type']=='Plat'){
+            if($item['TYPE']=='Plat'){
                 $produit['plat'][]=$item;
-            }elseif($item['type']=='Entrée'){
+            }elseif($item['TYPE']=='Entrée'){
                 $produit['entree'][]=$item;
-            }elseif($item['type']=='Dessert'){
+            }elseif($item['TYPE']=='Dessert'){
                 $produit['dessert'][]=$item;
             }else{
                 $produit['boisson'][]=$item;

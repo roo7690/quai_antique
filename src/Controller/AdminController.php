@@ -150,13 +150,11 @@ class AdminController extends AbstractController
     #[Route('/galerie/delete/{id}',name:'-Galerie-Delete')]
     public function DeleteGalerie($id): RedirectResponse
     {
-        if(isset($_SESSION)){
-            if(isset($_SESSION['droitNote'])){
-                if(!$_SESSION['droitNote']){
-                    (new Galerie)->delGalerie($id);
+        if(isset($_SESSION['user']['droitNote'])){
+            if(!$_SESSION['user']['droitNote']){
+                (new Galerie)->delGalerie($id);
 
-                    return $this->redirectToRoute('Admin');
-                }
+                return $this->redirectToRoute('Admin');
             }
         }
         
@@ -191,15 +189,15 @@ class AdminController extends AbstractController
     #[Route('/produit/delete/{id}',name:'-Produit-Delete')]
     public function DeleteProduit($id): RedirectResponse
     {
-        if(isset($_SESSION)){
-            if(isset($_SESSION['droitNote'])){
-                if(!$_SESSION['droitNote']){
-                    (new Produit())->delProduit($id);
+        
+        if(isset($_SESSION['user']['droitNote'])){
+            if(!$_SESSION['user']['droitNote']){
+                (new Produit())->delProduit($id);
 
-                    return $this->redirectToRoute('Admin');
-                }
+                return $this->redirectToRoute('Admin');
             }
         }
+        
         
         return $this->redirectToRoute('Accueil');
     }
@@ -232,15 +230,14 @@ class AdminController extends AbstractController
     #[Route('/menu/delete/{id}',name:'-Menu-Delete')]
     public function DeleteMenu($id): RedirectResponse
     {
-        if(isset($_SESSION)){
-            if(isset($_SESSION['droitNote'])){
-                if(!$_SESSION['droitNote']){
-                    (new Menu())->delMenu($id);
+        if(isset($_SESSION['user']['droitNote'])){
+            if(!$_SESSION['user']['droitNote']){
+                (new Menu())->delMenu($id);
 
-                    return $this->redirectToRoute('Admin');
-                }
+                return $this->redirectToRoute('Admin');
             }
         }
+        
         
         return $this->redirectToRoute('Accueil');
     }

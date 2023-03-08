@@ -44,7 +44,7 @@ class AddGlobalVar
             session_start();
         }
         if(isset($_SESSION['user'])){
-            if($_SESSION['user']['droitNote']!=0){
+            if($_SESSION['user']['droitNote']){
                 $this->user=(new User())->getUser($_SESSION['user']['email']);
             }else{
                 $this->user=(new Admin())->getUser($_SESSION['user']['email']);
