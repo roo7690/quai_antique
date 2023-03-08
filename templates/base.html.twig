@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Quai Antique{% endblock %}</title>
-        <link rel="icon" href="/img/Logo.png">
+        <link rel="icon" href="{{ asset(path.Logo) }}">
         {% block description_page %}
             <meta name="description" content="Destination quai antique pour embarquer dans l'un de nos bateaux
                 de croisière et passer un diner inoubliable sur la mer.">
@@ -59,7 +59,7 @@
                                         {% if user.droitNote==0 %}
                                             <li class="dropdown-item"><a href="/admin" class="nav-link qaNav">Bureau</a></li>
                                         {% endif %}
-                                        <li class="dropdown-item"><a href="/deconnexion" class="nav-link qaNav">Déconnexion</a></li>
+                                        <li class="dropdown-item"><a href="/deconnexion/{{page}}" class="nav-link qaNav">Déconnexion</a></li>
                                     </ul>
                                 {% else %}
                                     <a href="/form/connexion">
@@ -193,7 +193,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/user/update/{{ user.id }}" method="POST">
+                        <form action="/user/update/{{user.id}}?page={{page}}" method="POST">
                             <div class="m-2">
                                 <label for="updateUser_firstname">Nom</label>
                                 <input id="updateUser_firstname" class="form-control" name="updateUser_firstname"
@@ -224,7 +224,7 @@
                         Confirmez-vous vouloir supprimez votre compte?
                     </div>
                     <div class="modal-footer align-items-end">
-                        <a href="/user/delete/{{ user.id }}">
+                        <a href="/user/delete/{{ user.id }}?page={{page}}">
                             <button type="button" class="btn qabtn me-2">Oui</button>
                         </a>
                         <button type="button" class="btn qabtn" data-bs-dismiss="modal">Annuler</button>

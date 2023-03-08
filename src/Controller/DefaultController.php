@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 
 
 class DefaultController extends AbstractController
@@ -40,7 +43,8 @@ class DefaultController extends AbstractController
         return $this->render('home/Accueil.html.twig',[
             "arc"=>$arc,
             "Avis"=>$Avis,
-            "reservation"=>$reservation->createView()
+            "reservation"=>$reservation->createView(),
+            "page"=>"Accueil"
         ]);
     }
 
@@ -59,38 +63,69 @@ class DefaultController extends AbstractController
         }
 
         return $this->render('home/Carte.html.twig',[
-            "reservation"=>$reservation->createView()
+            "reservation"=>$reservation->createView(),
+            "page"=>"Carte"
         ]);
     }
 
     #[Route('/form/{action}',name:'Formulaire')]
     public function Formulaire(Request $request,MailerInterface $Mailer,string $action): Response{
-        //création du formulaire
+        //création du formulaire d'inscription ou connexion
         $form= $this->createForm(Inscrip_Connexion::class);
         $form->handleRequest($request);
-        //gestion du post
-        if($form->isSubmitted()){
-            if($action=='connexion'){
-                (new Authentification)->Connexion($form->getData());
-            }else{
-                (new Authentification)->Inscription($Mailer,$form->getData());
-            }
 
-            return $this->redirectToRoute('Accueil');
-        }
+        //création du formulaire de mot de passe oublié
+        $forget= $this->createFormBuilder()
+            ->add('email',EmailType::class, [
+                'label'=>'Email',
+                'attr'=>[
+                    'class'=>'form'
+                ]
+            ])
+            ->getForm();
+        $forget->handleRequest($request);
 
         //gestion des messages de non validation
-        $error=['Email ou mot de passe non valide','Cet Email est déjà utilisé'];
-        if(isset($_GET['error'])){
-            $error=$error[$_GET['error']];
-        }else{
-            $error='vide';
+        $error='vide';
+
+        //gestion du post de connexion ou inscription
+        if($form->isSubmitted()){
+            $response=null;
+            if($action=='connexion'){
+                $response=(new Authentification)->Connexion($form->getData());
+                if(!$response){$error='Email ou mot de passe non valide';}
+            }else{
+                $response=(new Authentification)->Inscription($Mailer,$form->getData());
+                if(!$response){$error='Cet Email est déjà utilisé';}
+            }
+
+            if($response){
+                return $this->redirectToRoute('Accueil');
+            }
+        }
+
+        //gestion du post de forget
+        if($forget->isSubmitted()){
+            $email=$forget->getData();
+            $user=(new User)->getUser($email['email']);
+
+            (new SendMail)->newPassword($Mailer,$user['id'],$user['email']);
         }
 
         return $this->render('admin/Form.html.twig',[
             "action"=>$action,
             "form"=>$form->createView(),
+            "forget"=>$forget->createView(),
             "error"=>$error
         ]);
     }
+
+    #[Route('/deconnexion/{page}','Deconnexion')]
+    public function Deconnexion($page): RedirectResponse
+    {
+        $_SESSION=[];
+
+        return $this->redirectToRoute($page);
+    }
+
 }

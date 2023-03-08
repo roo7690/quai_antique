@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulaire</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="icon" href="{{ asset(path.Logo) }}">
     <link rel="stylesheet" href="{{ asset(path.bootstrap) }}css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset(path.qaCss) }}qA.css">
     <link rel="stylesheet" href="{{ asset(path.qaCss) }}qaForm.css">
     {{ encore_entry_link_tags('app') }}
-
-    <script src="{{ asset(path.qaJs) }}qaForm.js"></script>
+    <script src="{{ asset(path.bootstrap) }}js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="{{ asset(path.qaJs) }}qaForm.js" type="text/javascript"></script>
     {{ encore_entry_script_tags('app') }}
 </head>
 <body>
@@ -71,13 +71,32 @@
         {{ form_end(form, {render_rest:false}) }}
         <div class="text-center mt-3">
             {% if action=='connexion' %}
-                <a href="#" style="text-decoration: none; font-size: 14px; color: #75E6DA;">Mot de passe oublié ?</a>
-                <br/>
-                <br/>
+                <div data-bs-toggle="modal" data-bs-target="#forget" class="pb-2" style="font-size: 14px; color: #75E6DA; cursor:pointer;">Mot de passe oublié ?</div>
                 Vous n'avez pas encore de compte ? <a href="/form/inscription" style=" font-size: 14px; color: #75E6DA;">Veuillez créer un compte</a> .
             {% else %}
                 Vous avez déjà un compte ! <a href="/form/connexion" style=" font-size: 14px; color: #75E6DA;">Connexion</a> .
             {% endif %}
+        </div>
+    </div>
+    <div class="modal fade" id="forget" tabindex="-1"
+                 aria-labelledby="addAdmin" data-bs-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-6">Vous recevrez un mail grace auquel vous pourrez changer d'email.</h1>
+                </div>
+                {{ form_start(forget,{'method':'POST'}) }}
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        {{ form_row(forget.email) }}
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <input type="submit" class="btn qabtn" value="Envoyer">
+                    <button type="button" class="btn qabtn" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                </div>
+                {{ form_end(forget,{render_rest:false}) }}
+            </div>
         </div>
     </div>
 </body>

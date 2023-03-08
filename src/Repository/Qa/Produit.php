@@ -27,6 +27,16 @@ class Produit{
         $cmd->execute();
     }
 
+    public function updateProduit($id)
+    {
+        $cmd=$this->pdo->prepare("update produit set title=?,description=?,prix=? where id=?;");
+        $cmd->bindParam(1,$this->title);
+        $cmd->bindParam(2,$this->description);
+        $cmd->bindParam(3,$this->prix);
+        $cmd->bindParam(4,$id);
+        $cmd->execute();
+    }
+
     public function delProduit(int $id){
         //delete
         $cmd=$this->pdo->prepare("delete from produit where id=?;");

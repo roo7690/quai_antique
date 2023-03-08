@@ -33,6 +33,7 @@ class AddGlobalVar
             "imgGalerie"=>((new PathPackage('img/galerie/',new EmptyVersionStrategy()))->getUrl('')),
             "imgMenu"=>((new PathPackage('img/menu/',new EmptyVersionStrategy()))->getUrl('')),
             "imgConstant"=>((new PathPackage('img/constant/',new EmptyVersionStrategy()))->getUrl('')),
+            "Logo"=>((new PathPackage('img/',new EmptyVersionStrategy()))->getUrl('Logo.png'))
         ];
     }
 
@@ -48,6 +49,7 @@ class AddGlobalVar
             }else{
                 $this->user=(new Admin())->getUser($_SESSION['user']['email']);
             }
+            if(!$this->user){$_SESSION=[];}
         }else{$this->user=false;}
 
         $this->twig->addGlobal('user',$this->user);

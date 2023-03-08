@@ -25,6 +25,16 @@ class Menu {
         $cmd->execute();
     }
 
+    public function updateMenu($id)
+    {
+        $cmd=$this->pdo->prepare("update menu set title=?,description=?,prix=? where id=?;");
+        $cmd->bindParam(1,$this->title);
+        $cmd->bindParam(2,$this->description);
+        $cmd->bindParam(3,$this->prix);
+        $cmd->bindParam(4,$id);
+        $cmd->execute();
+    }
+
     public function delMenu(int $id){
         //delete
         $cmd=$this->pdo->prepare("delete from menu where id=?;");

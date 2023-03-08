@@ -30,10 +30,25 @@ class Admin extends User{
         $cmd->execute();
     }
 
+    public function updateAdmin(array $data,int $id)
+    {
+        $cmd=$this->pdo->prepare('update admin set produit=?,galerie=?,horaire=? where id_admin=?');
+        $cmd->bindParam(4,$id);
+        $cmd->bindParam(1,$data['produit']);
+        $cmd->bindParam(2,$data['galerie']);
+        $cmd->bindParam(3,$data['horaire']);
+        $cmd->execute();
+    }
+
     public function delAdmin(int $id){
         //delete
         $cmd=$this->pdo->prepare("delete from admin where id_admin=?;");
         $cmd->bindParam(1,$id);
+        $cmd->execute();
+        //bloque connexion
+        $cmd=$this->pdo->prepare('update user set password=? where id=?;');
+        $cmd->bindParam(1,"changez_votre_mot_de_passe");
+        $cmd->bindParam(2,$id);
         $cmd->execute();
     }
 
@@ -42,4 +57,18 @@ class Admin extends User{
         $cmd->execute();
         return $cmd->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function sendMsg(string $img,$text)
+    {
+        move_uploaded_file($img,'img/msg/imgMsg.jpg');
+
+        $msg=[
+            ["text"=>$text]
+        ];
+        $msg=json_encode($msg);
+        $Msg=fopen('quaiAntique/data/msg.json','w');
+        fwrite($Msg,$msg);
+        fclose($Msg);
+    }
+
 }

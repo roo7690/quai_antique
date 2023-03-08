@@ -6,11 +6,9 @@ use App\Service\SendMail;
 use App\Repository\User\Admin;
 use App\Repository\User\User;
 use PDO;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class Authentification extends abstractController
+class Authentification
 {
     private PDO $pdo;
     private $hasherUser='sha1';
@@ -20,14 +18,14 @@ class Authentification extends abstractController
         $this->pdo= new PDO($_ENV['dsn'],$_ENV['user'],$_ENV['password']);
     }
 
-    public function Connexion(array $data): RedirectResponse
+    public function Connexion(array $data): bool
     {
         $cmd=$this->pdo->prepare("select email,password from user where email=?;");
         $cmd->bindParam(1,$data['email']);
         $cmd->execute();
         $result=$cmd->fetch(PDO::FETCH_ASSOC);
         if(!$result){
-            return $this->redirect('/form/connexion?error=0');
+            return false;
         }else{
             $user=null;
             $password=[
@@ -39,23 +37,24 @@ class Authentification extends abstractController
             }elseif($password[1]==$result['password']){
                 $user=(new Admin())->getUser($data['email']);
             }else{
-                return $this->redirect('/form/connexion?error=0');
+                return false;
             }
             if(!isset($_SESSION)){
                 session_start();
             }
             $_SESSION['user']=$user;
         }
+        return true;
     }
 
-    public function Inscription(MailerInterface $Mailer,array $data): RedirectResponse
+    public function Inscription(MailerInterface $Mailer,array $data): bool
     {
         $cmd=$this->pdo->prepare("select email,password from user where email=?;");
         $cmd->bindParam(1,$data['email']);
         $cmd->execute();
         $result=$cmd->fetch(PDO::FETCH_ASSOC);
         if($result){
-            return $this->redirect('/form/inscription?error=1');
+            return false;
         }else{
             $password=hash($this->hasherUser,$data['password']);
             $user=new User($data['firstname'],$data['lastname'],$data['email'],$password);
@@ -66,6 +65,7 @@ class Authentification extends abstractController
             $_SESSION['user']=$user->getUser($data['email']);
             (new SendMail)->confirmEmail($Mailer,$_SESSION['user']['id'],$data["email"]);
         }
+        return true;
     }
 
 }

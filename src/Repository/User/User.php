@@ -54,6 +54,26 @@ class User{
         $cmd->execute();
     }
 
+    public function updateUser(array $data,int $id)
+    {
+        //Update User
+        $cmd=$this->pdo->prepare('update user set firstname=?,lastname=? where id=?;');
+        $cmd->bindParam(1,$data['updateUser_firstname']);
+        $cmd->bindParam(2,$data['updateUser_lastname']);
+        $cmd->bindParam(3,$id);
+        $cmd->execute();
+    }
+
+    public function updateAccess(string $email,string $password)
+    {
+        $password=hash('sha1',$password);
+        //Change mot de passe
+        $cmd=$this->pdo->prepare('update user set password=? where email=?');
+        $cmd->bindParam(1,$password);
+        $cmd->bindParam(2,$email);
+        $cmd->execute();
+    }
+
     public function delUser(int $id)
     {
         //supprime user
@@ -64,6 +84,12 @@ class User{
         $cmd=$this->pdo->prepare("delete from action where id_user=?;");
         $cmd->bindParam(1,$id);
         $cmd->execute();
+        if(!$_SESSION['droitNote']){
+            //supprime admin
+            $cmd=$this->pdo->prepare('delete from admin where id_admin=?;');
+            $cmd->bindParam(1,$id);
+            $cmd->execute();
+        }
     }
 
     public function getEmail(int $id): string{
@@ -102,6 +128,24 @@ class User{
         return $response;
     }
 
+
+    //Récupération des avis des utilisateurs
+    public function setNote(array $data,int $id)
+    {
+        //déterminer le state_note
+        $cmd=$this->pdo->prepare('select max(state_note) from action;');
+        $cmd->execute();
+        $state_note=$cmd->fetch(PDO::FETCH_ASSOC);
+        $state_note=$state_note['max(state_note)']+1;
+        //update Avis
+        $cmd=$this->pdo->prepare('update action set note=?,msg_note=?,state_note=? where id_user=?;');
+        $cmd->bindParam(1,$data['note']);
+        $cmd->bindParam(2,$data['msg_user']);
+        $cmd->bindParam(3,$state_note);
+        $cmd->bindParam(4,$id);
+        $cmd->execute();
+    }
+
     public function getNote():array{
         function Note(float $note): array{
             $la=0;
@@ -120,9 +164,9 @@ class User{
         foreach($Notes as $item){
             $note+=$item['note'];
         }
-        $note=1;
-        if(count($Notes)!=0){
-            $note=($note/count($Notes))/5;
+        $note=($note/count($Notes))/5;
+        if(count($Notes)==0){
+            $note=1;
         }
         
         return Note($note);

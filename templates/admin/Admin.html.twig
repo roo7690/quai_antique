@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Quai Antique{% endblock %}</title>
-    <link rel="icon" href="img/Logo.png">
+    <link rel="icon" href="{{ asset(path.Logo) }}">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block css %}
         <link rel="stylesheet" href="{{ asset(path.bootstrap) }}css/bootstrap.min.css">
@@ -63,7 +63,7 @@
                                         <li class="dropdown-item"><a href="/Bureau" class="nav-link qaNav">Bureau</a></li>
                                     {% endif %}
                                     <li class="dropdown-item">
-                                        <a href="/deconnexion" class="nav-link qaNav">
+                                        <a href="/deconnexion/{{page}}" class="nav-link qaNav">
                                             Déconnexion
                                         </a>
                                     </li>
@@ -127,7 +127,7 @@
                                                 </button>
                                             </div>
                                             <div class="d-flex justify-content-center">
-                                                <a href="/galerie/delete/{{ galerie.id }}">
+                                                <a href="/admin/galerie/delete/{{ galerie.id }}">
                                                     <button class="btn qabtn">Supprimer</button>
                                                 </a>
                                             </div>
@@ -174,7 +174,7 @@
                                                     </svg>
                                                     Éditer
                                                 </button>
-                                                <a href="/produit/delete/{{ produit.id }}">
+                                                <a href="/admin/produit/delete/{{ produit.id }}">
                                                     <button class="btn qabtn me-1">Supprimer</button>
                                                 </a>
                                             </div>
@@ -195,7 +195,7 @@
                                                         </svg>
                                                         Éditer
                                                     </button>
-                                                    <a href="/produit/delete/{{ produit.id }}">
+                                                    <a href="/admin/produit/delete/{{ produit.id }}">
                                                         <button class="btn qabtn me-1">Supprimer</button>
                                                     </a>
                                                 </div>
@@ -215,7 +215,7 @@
                                                         </svg>
                                                         Éditer
                                                     </button>
-                                                    <a href="/produit/delete/{{ produit.id }}">
+                                                    <a href="/admin/produit/delete/{{ produit.id }}">
                                                         <button class="btn qabtn me-1">Supprimer</button>
                                                     </a>
                                                 </div>
@@ -235,7 +235,7 @@
                                                         </svg>
                                                         Éditer
                                                     </button>
-                                                    <a href="/produit/delete/{{ produit.id }}">
+                                                    <a href="/admin/produit/delete/{{ produit.id }}">
                                                         <button class="btn qabtn me-1">Supprimer</button>
                                                     </a>
                                                 </div>
@@ -288,7 +288,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="d-flex h-50 p-2 justify-content-center align-items-center">
-                                                        <a href="/menu/delete/{{ menu.id }}">
+                                                        <a href="/admin/menu/delete/{{ menu.id }}">
                                                             <button class="btn qabtn me-1">Supprimer</button>
                                                         </a>
                                                     </div>
@@ -480,7 +480,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/user/update/{{ user.id }}" method="POST">
+                    <form action="/user/update/{{ user.id }}?page={{page}}" method="POST">
                         <div class="m-2">
                             <label for="updateUser_firstname">Nom</label>
                             <input id="updateUser_firstname" class="form-control" name="updateUser_firstname"
@@ -513,7 +513,7 @@
                     Confirmez-vous vouloir supprimez votre compte?
                 </div>
                 <div class="modal-footer align-items-end">
-                    <a href="/user/delete/{{ user.id }}">
+                    <a href="/user/delete/{{ user.id }}?page={{page}}">
                         <button type="button" class="btn qabtn me-2">Oui</button>
                     </a>
                     <button type="button" class="btn qabtn" data-bs-dismiss="modal">Annuler</button>
@@ -533,7 +533,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/galerie/add" enctype="multipart/form-data"
+                            <form action="/admin/galerie/add" enctype="multipart/form-data"
                                   method="POST" class="row g-3">
                                 <div class="col-auto">
                                     <label for="titreGalerie" class="col-form-label">Titre</label>
@@ -562,7 +562,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/galerie/update/{{ galerie.id }}"
+                                <form action="/admin/galerie/update/{{ galerie.id }}"
                                       class="row g-3" method="POST">
                                     <div class="col-auto">
                                         <label for="titreGalerie{{ galerie.id }}" class="form-label">Titre</label>
@@ -592,7 +592,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/produit/add"
+                            <form action="/admin/produit/add"
                                   class="row g-2" method="POST">
                                 <div>
                                     <select id="typeProduit" name="typeProduit" class="form-select" aria-label="Select Produit" required>
@@ -641,7 +641,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/produit/update/{{ produit.id }}"
+                                <form action="/admin/produit/update/{{ produit.id }}"
                                       class="row g-2" method="POST">
                                     <div class="col-auto">
                                         <label for="titreProduit{{ produit.id }}" class="form-label">Titre</label>
@@ -683,7 +683,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/menu/add"
+                            <form action="/admin/menu/add"
                                   class="row g-2" method="POST">
                                 <div class="col-auto">
                                     <label for="titreMenu" class="form-label">Titre</label>
@@ -722,7 +722,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/menu/update/{{ menu.id }}"
+                                <form action="/admin/menu/update/{{ menu.id }}"
                                       class="row g-2" method="POST">
                                     <div class="col-auto">
                                         <label for="titreMenu{{ menu.id }}" class="form-label">Titre</label>
@@ -766,7 +766,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/horaire/update"
+                            <form action="/admin/horaire"
                                   method="POST" class="container-fluid">
                                 {% for day in Horaire %}
                                     <div class="row">
