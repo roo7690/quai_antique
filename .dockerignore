@@ -1,0 +1,48 @@
+# flyctl launch added from .gitignore
+
+###> symfony/framework-bundle ###
+.env.local.php
+config\secrets\prod\prod.decrypt.private.php
+var
+vendor
+###< symfony/framework-bundle ###
+
+###> symfony/webpack-encore-bundle ###
+node_modules
+**\npm-debug.log
+**\yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+###> deploy
+###< deploy
+
+# flyctl launch added from vendor\psr\container\.gitignore
+vendor\psr\container\**\composer.lock
+vendor\psr\container\**\composer.phar
+vendor\psr\container\vendor
+
+# flyctl launch added from vendor\psr\event-dispatcher\.gitignore
+vendor\psr\event-dispatcher\vendor
+vendor\psr\event-dispatcher\**\composer.lock
+
+# flyctl launch added from vendor\sensio\framework-extra-bundle\.gitignore
+vendor\sensio\framework-extra-bundle\vendor
+vendor\sensio\framework-extra-bundle\**\coverage
+vendor\sensio\framework-extra-bundle\tests\Fixtures\var
+vendor\sensio\framework-extra-bundle\**\phpunit.xml
+vendor\sensio\framework-extra-bundle\**\composer.lock
+vendor\sensio\framework-extra-bundle\.php_cs.cache
+vendor\sensio\framework-extra-bundle\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\cssinliner-extra\.gitignore
+vendor\twig\cssinliner-extra\**\vendor
+vendor\twig\cssinliner-extra\**\composer.lock
+vendor\twig\cssinliner-extra\**\phpunit.xml
+vendor\twig\cssinliner-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\extra-bundle\.gitignore
+vendor\twig\extra-bundle\**\vendor
+vendor\twig\extra-bundle\**\var
+vendor\twig\extra-bundle\**\composer.lock
+vendor\twig\extra-bundle\**\phpunit.xml
+vendor\twig\extra-bundle\**\.phpunit.result.cache

@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div id="select-Offcanvas" style="width:100vw;height:100vh;margin-top: 55px;">
+        <div id="sel-Offcanvas" class="container-fluid h-100 p-0" style="position:fixed;z-index: 0;">
+            <div class="row h-100 p-0">
+                <div class="col-3 p-0 overflow-hidden" data-bs-toggle="offcanvas" data-bs-target="#carte-entrée">
+                    <img src="{{ asset(path.imgConstant) }}salade-pad-thai.jpg" alt="img entrée"
+                         class="img-selectOffcanvas">
+                    <div class="title-selectOffcanvas" {{ react_component('title/Entree') }} ></div>
+                </div>
+                <div class="col-3 p-0 overflow-hidden" data-bs-toggle="offcanvas" data-bs-target="#carte-plat">
+                    <img src="{{ asset(path.imgConstant) }}bol-de-moussaka.jpg" alt="img plat"
+                         class="img-selectOffcanvas">
+                    <div class="title-selectOffcanvas" {{ react_component('title/Plat') }} ></div>
+                </div>
+                <div class="col-3 p-0 overflow-hidden" data-bs-toggle="offcanvas" data-bs-target="#carte-dessert">
+                    <img src="{{ asset(path.imgConstant) }}pain-aux-bananes-et-pepites-de-chocolat.jpg" alt="img dessert"
+                         class="img-selectOffcanvas">
+                    <div class="title-selectOffcanvas" {{ react_component('title/Dessert') }} ></div>
+                </div>
+                <div class="col-3 p-0 overflow-hidden" data-bs-toggle="offcanvas" data-bs-target="#carte-boisson">
+                    <img src="{{ asset(path.imgConstant) }}SharedScreenshot.jpg" alt="img boisson"
+                         class="img-selectOffcanvas">
+                    <div class="title-selectOffcanvas" {{ react_component('title/Boisson') }} ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #D4F1F4;margin-top: 55px;">
+        <div id="carte-menu" class="p-4 réducteur-space"><!--Réduction de la surface-->
+            <!--menu-->
+            {% include 'section/_menu.html.twig' with {'Menu':Menu, 'descente':"descente"} %}
+        </div>
+        <!--Embellir la Carte-Menu -->
+        <!--Canvas du haut-droit-->
+        <div {{ react_component('imgcard/Img1Card') }} ></div>
+        <!--Canvas du bas-gauche-->
+        <div {{ react_component('imgcard/Img2Card') }} ></div>
+    </div>
+    <!--Carte Entrée-->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="carte-entrée"
+         aria-labelledby="carte-entrée" data-bs-backdrop="static"
+         style="width:100vw;height:100vh;background-color: #D4F1F4;">
+        <div class="d-flex h-100 w-100" style="padding-top:64px;" >
+            <div class="d-flex justify-content-center align-items-center btn qabtn" data-bs-dismiss="offcanvas" aria-label="Close"
+                    style="position:relative;z-index:2;top:50%; width: 50px;height: 50px;
+                    transform: translate(10px,-50%);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </div>
+            <div class="réducteur-space" style="padding: 80px 0 80px 0;">
+                <div id="entrée" class="container-fluid h-100 overflow-auto">
+                    {% for produit in Produit.entree %}
+                        <div class="row carte">
+                            {% include 'section/_produit.html.twig' with {'produit': produit} %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div {{ react_component('imgcard/Img1Entree') }} ></div>
+            <div {{ react_component('imgcard/Img2Entree') }} ></div>
+        </div>
+    </div>
+    <!--Carte Plat-->
+    <div class="offcanvas offcanvas-top Offcanvas" tabindex="-1" id="carte-plat"
+         aria-labelledby="carte-plat" data-bs-backdrop="static"
+         style="width:100vw;height:100vh;background-color: #D4F1F4;">
+        <div class="d-flex h-100 w-100" style="padding-top:64px;" >
+            <div class="d-flex justify-content-center align-items-center btn qabtn p-2" data-bs-dismiss="offcanvas" aria-label="Close"
+                    style="position:relative;z-index:2;top:100%;left:50%;width:50px;height: 50px;
+                    transform:translate(0,-120%);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </div>
+            <div class="réducteur-space" style="padding: 80px 0 80px 0;">
+                <div id="plat" class="container-fluid h-100 overflow-auto">
+                    {% for produit in Produit.plat %}
+                        <div class="row carte">
+                            {% include 'section/_produit.html.twig' with {'produit':produit} %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div {{ react_component('imgcard/Img1Plat') }} ></div>
+            <div {{ react_component('imgcard/Img2Plat') }} ></div>
+        </div>
+    </div>
+    <!--Carte Dessert-->
+    <div class="offcanvas offcanvas-bottom Offcanvas" tabindex="-1" id="carte-dessert"
+         aria-labelledby="carte-dessert" data-bs-backdrop="static"
+         style="width:100vw;height:100vh;background-color: #D4F1F4;">
+        <div class="d-flex h-100 w-100" style="padding-top:64px;">
+            <div class="d-flex justify-content-center align-items-center btn qabtn p-2" data-bs-dismiss="offcanvas" aria-label="Close"
+                    style="position:relative;z-index:2;left:50%;width:50px;height: 50px;
+                    transform: translate(0,10px);" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </div>
+            <div class="réducteur-space" style="padding: 80px 0 80px 0;">
+                <div id="dessert" class="container-fluid h-100 overflow-auto">
+                    {% for produit in Produit.dessert %}
+                        <div class="row carte">
+                            {% include 'section/_produit.html.twig' with {'produit': produit} %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div {{ react_component('imgcard/Img1Dessert') }} ></div>
+            <div {{ react_component('imgcard/Img2Dessert') }} ></div>
+        </div>
+    </div>
+    <!--Carte Boisson-->
+    <div class="offcanvas offcanvas-start Offcanvas" tabindex="-1" id="carte-boisson"
+         aria-labelledby="carte-boisson" data-bs-backdrop="static"
+         style="width:100vw;height:100vh;background-color: #D4F1F4;">
+        <div class="d-flex h-100 w-100" style="padding-top:64px;">
+            <div class="d-flex justify-content-center align-items-center btn qabtn p-2" data-bs-dismiss="offcanvas" aria-label="Close"
+                    style="position:relative;z-index:2;top:50%;left:100%;width:50px;height: 50px;
+                    transform: translate(-120%,-50%);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </div>
+            <div class="réducteur-space" style="padding: 80px 0 80px 0;">
+                <div id="boisson" class="container-fluid h-100 overflow-auto">
+                    {% for produit in Produit.boisson %}
+                        <div class="row carte">
+                            {% include 'section/_produit.html.twig' with {'produit': produit} %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div {{ react_component('imgcard/Img1Boisson') }} ></div>
+            <div {{ react_component('imgcard/Img2Boisson') }} ></div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('scroll',()=>{
+
+            let selectOffcanvas=document.getElementById('sel-Offcanvas');
+
+            //Empèche||ouvre l'accès à la carte
+            if(window.scrollY>100){
+                selectOffcanvas.style.zIndex=-1;
+            }else{
+                selectOffcanvas.style.zIndex=0;
+            }
+        });
+    </script>
+{% endblock %}

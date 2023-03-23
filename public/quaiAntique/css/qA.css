@@ -1,0 +1,432 @@
+/*
+ couleur:
+    Beige-surface:#E9DAC4//Bleu bébé #D4F1F4
+    Saumon-survol:#E0AC8E//Grotte Bleue #189AB4
+    Puce-head&footer:#514843 (21, 9%, 29%)//Bleu marine #05445E (198, 90%, 19%)
+    Carafe-btn&svg:#6D3D38//Bleu Vert #75E6DA
+ font-family: @import url('https://fonts.googleapis.com/css2? family=Josefin+Sans:wght@200&family=Karla:wght@200&family=Merriweather:wght@300&family=Oswald:wght@200&display=swap');
+    Title: 'Karla', sans-serif;
+    Title produit:'Oswald', sans-serif;
+    description&text:'Josefin Sans', sans-serif;
+    Prix:'merriweather',serif
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&family=Karla:wght@200&family=Merriweather:wght@300&family=Oswald:wght@200&display=swap');
+
+body::-webkit-scrollbar{width:7px;}
+body::-webkit-scrollbar:hover{width:15px;}
+body::-webkit-scrollbar-track{background-color:#189AB4;}
+body::-webkit-scrollbar-thumb{background-color:#75E6DA;}
+/*Utilities*/
+/*text*/
+.qatitle{
+    font-size:30px;
+    font-family:'Karla', sans-serif;
+    font-weight: bold;
+    color:white;
+}
+.qatitle.qatitle-galerie{
+    font-weight: bold;
+    font-size: 50px;
+}
+.qatext{
+    font-size:20px;
+    font-family:'Josefin Sans', sans-serif;
+    font-weight: 500;
+    color:white;
+}
+.qatitleProduit{
+    font-size: 25px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    color:#75E6DA;
+}
+.qaPrix{
+    font-size: 20px;
+    font-family: 'merriweather',serif;
+    font-weight: bold;
+    color: white;
+}
+
+/*bouton*/
+.qabtn{
+    background-color:#75E6DA;
+    color:white;
+    font-size:20px;
+    font-family:'Karla', sans-serif;
+    font-weight: 400;
+    cursor:pointer;
+}
+.qabtn:hover{
+    color:#189AB4;
+}
+.qabtn.select{
+    background-color: white;
+    border: solid 1px #189AB4;
+    color:#189AB4;
+}
+/*List*/
+.qalist{
+    list-style-type:none; padding:0;
+}
+/*message resto & user*/
+.message{
+    border-radius: 10px;
+    background-color: hsla(198, 90%, 19%,0.9);
+}
+.message.message-user{
+    background-color: hsla(198, 90%, 19%,1);
+}
+/*cache*/
+.hidden{
+    display: none;
+}
+/*Centrer*/
+.hor-center{
+    margin-left:50%;
+    transform: translatex(-50%);
+}
+/*Banières*/
+#bannière1{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#bannière1::-webkit-scrollbar{display: none;}
+.banière-chef{width:100vw;}
+.block-chef-text{width:55vw;height:400px;}
+.block-chef-img{width:45vw;height: 600px;}
+
+#bannière2{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#bannière2::-webkit-scrollbar{display: none;}
+.banière-env{width:100vw;}
+.block-env-text{margin-top:50px;width:40vw;height:400px;}
+.block-env-left{width:30vw;height:400px;transition: all 2s;}
+.block-env-right{width: 30vw;height: 400px;transition: all 2s;}
+
+#recettes{
+    height:300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#recettes::-webkit-scrollbar{display: none;}
+
+.banière-voy{width: 100vw;}
+
+/*Fin utilities*/
+
+/*head*/
+#Logo{
+    z-index:4;
+    position: fixed;
+    top:2px;left:10px;
+}
+
+/*navigation*/
+#nav{
+    z-index:0;
+    background-color:#05445E;
+    transition:all 1.6s;
+}
+#nav.in-slide{
+    background-color: hsla(198, 90%, 19%,0.4);
+}
+#reducSurfNav{
+    width: 80%;margin-left:20%;
+}
+.qaNav{
+    font-size:20px;
+    font-family:'Karla', sans-serif;
+    font-weight: 400;
+    color:white;
+    transition: all 0.5s;
+}
+.qaNav:hover{
+    color:#189AB4;
+}
+#reserverHead{
+    z-index:1;
+    position: fixed; top:31px;left:75%;
+    transform: translate(-50%,-50%);
+}
+/*fin head*/
+/*Main*/
+#main{
+    z-index: -1;
+    position:absolute;
+    display:grid;
+    width: 100%;
+    grid-template-areas:
+        "body"
+        "foot";
+    overflow: hidden;
+}
+#body{
+    grid-area: body;
+}
+
+/*slide*/
+#slide{
+    position:relative;
+    z-index: 1;
+    height:100vh;
+    width:100vw;
+    overflow: hidden;
+}
+#slide-img{
+    z-index:-1;
+    height:100vh;
+    width:100vw;
+}
+
+/*description*/
+#slide-title-space{
+    z-index:0;
+    width:400px;
+    position: absolute;
+    top:50vh;left:400px;
+    padding: 4px;
+    border-radius: 10px;
+    transform: translate(-50%,-50%);
+    background-color: hsla(198, 90%, 19%,0.7);
+}
+#réserver-slide{
+    margin-left: 50%;
+    transform: translatex(-50%);
+}
+/*cadre*/
+#barre-haut{
+    z-index:1;
+    position: fixed;
+    top:62px; left:50%;
+    background-color: white;
+    height:2px;
+    width:80%;
+    transform: translatex(-50%);
+    transition: all 1.6s;
+}
+#barre-haut.off-slide{
+    width: 0;
+}
+#cadre-bas{
+    z-index:1;
+    position:fixed;
+    top:100%;left:50%;
+    transform: translate(-50%,-120%);
+    height: 40px;width:80%;
+    background-color: hsla(198, 90%, 19%,0.4);
+    padding-top:4px;
+    overflow: hidden;
+    transition: all 1.6s;
+}
+#cadre-bas.off-slide{
+    width:0;
+}
+#barre-bas{
+    height:2px;
+    background-color: white;
+    margin-top:4px;
+}
+
+/*galerie*/
+#block-galerie{
+    z-index:1;
+    display: flex;
+    width:400px;height:100vh;
+    transform: translate(-350px,-100%);
+    background-color: transparent;
+    transition: all 1s;
+}
+#block-galerie:hover{
+    transform: translate(0px,-100%);
+}
+#galerie{
+    width:90%;height:86%;
+    margin-top:72px;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+#galerie::-webkit-scrollbar{width:0;}
+#poignet-galerie{
+    height:100%;width:10%;
+}
+#poignet{
+    position: absolute;
+    top:50%;
+    transform:translate(0%,-50%) rotate(180deg);
+    opacity: 1; color: white;
+    background-color:hsla(198, 90%, 19%,0.9);
+    border-radius: 70%;
+    transition: all 1s;
+    animation: poignet infinite alternate 2s ease;
+}
+#poignet.in-galerie{
+    opacity:0;
+}
+@keyframes poignet{
+    0%{
+        transform: translate(0%,-50%) rotate(180deg);
+    }
+    100%{
+        transform: translate(100%,-50%) rotate(180deg);
+    }
+}
+
+/*galerie*/
+.img-galerie{
+    width:200px;height:150px;
+    margin:5px;
+    border-radius: 5px;
+}
+
+
+/*fin slide*/
+
+/*réducteur de l'espace*/
+.réducteur-space{
+    position:relative;
+    z-index:1;
+    width:80%;
+    left:50%;
+    transform: translatex(-50%);
+}
+/*Carte*/
+.carte{
+    background-color: hsla(198, 90%, 19%,0.8);
+    margin:5px;
+}
+.img-selectOffcanvas{
+    width:200%;
+    height:100%;
+    transition: all 0.5s;}
+.img-selectOffcanvas:hover{transform: scale(1.05,1.05);}
+.title-selectOffcanvas{
+    position: relative;
+    z-index: 1;
+    top:-70%;
+}
+#plat::-webkit-scrollbar{display: none;}
+#entrée::-webkit-scrollbar{display: none;}
+#dessert::-webkit-scrollbar{display: none;}
+#boisson::-webkit-scrollbar{display: none;}
+
+/*Menu*/
+#menu{
+    opacity:0;
+    transform: translate(0,100px);
+    padding:50px 0 100px 0;
+    transition: all 1.5s;
+}
+#menu.descente{
+    opacity: 1;
+    transform: translate(0,0);
+}
+#carte-menu{
+    height:100vh;
+    overflow: auto;
+}
+#carte-menu::-webkit-scrollbar{display: none;}
+
+/*speach qa*/
+#qaSpeach{padding:100px 0 100px 0;}
+
+#img-resto{
+    transform: translate(-100px,0);
+    opacity: 0;
+    transition: all 1.5s;
+}
+#img-resto.descente{
+    transform: translate(0,0);
+    opacity: 1;
+}
+
+/*avis*/
+#Avis-space{padding:100px 0 100px 0;}
+
+#veutSavoir{
+    position: absolute;
+    width: 200px;
+}
+#note{
+    transform: translatey(-270px);
+    font-size: 80px;
+    font-family: 'merriweather',serif;
+    color: #75E6DA;
+}
+#note-svg{
+    margin-top: 50px;
+    margin-left: 50%;
+    transform: translatex(-50%);
+}
+#note-space{
+    transform: translate(100px,0);
+    opacity: 0;
+    transition: all 1.5s;
+}
+#note-space.descente{
+    transform: translate(0,0);
+    opacity: 1;
+}
+
+/*footer*/
+#footer{
+    position: relative;
+    z-index: 0;
+    grid-area: foot;
+    background-color: #05445E;
+}
+.horaire{
+    width:300px;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+/*Notif reservation*/
+#reserv-success{
+    z-index:5;
+    display: flex;
+    position: absolute;
+    top: -200px;
+    left:50%;
+    transform: translateX(-50%);
+    background-color: darkgreen;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-family:'Josefin Sans', sans-serif;
+    border-radius: 10px;
+    padding:5px 10px 5px 10px;
+    transition: all 1.5s;
+}
+#reserv-success.view{
+    top:65px;
+}
+/*Fin Main*/
+/*breakpoint*/
+@media (max-width: 991.98px){
+    /*space slide*/
+    #slide-title-space{
+        top:100vh;left:50vw;
+        transform: translate(-50%,-140%);
+    }
+    #barre-haut{
+        top:56px;
+    }
+    /*carte*/
+    #canvas1carte{top:56px;}
+    #canvas2carte{top:3500px;}
+    /*bannière*/
+    .banière-chef{width:130vw}
+    .block-chef-text{width:70vw;}
+    .block-chef-img{width:60vw;transition:all 2s;}
+    .block-chef-img:hover{transform: translateX(-50%);}
+
+    .banière-env{width:150vw;}
+    .block-env-text{width:60vw;}
+    .block-env-left{width:45vw;}
+    .block-env-right{width: 45vw;}
+    .block-env-left:hover{transform:translateX(25vw);}
+    .block-env-right:hover{transform:translateX(-25vw);}
+
+}

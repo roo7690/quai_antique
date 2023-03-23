@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block navAccueil %}in-slide{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset(path.qaJs) }}qAaccueil.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="slide"><!--slide-->
+        <!--description-->
+        <div id="slide-title-space">
+            <div id="slide-title" class="p-1 text-center qatitle qatitle-galerie">{{ slide.title }}</div>
+            <div class="p-1">
+                <button id="réserver-slide" class="btn qabtn" data-bs-toggle="modal" data-bs-target="#Réservation">
+                    Réserver
+                </button>
+            </div>
+        </div>
+        <!--Image-->
+        <img src="{{ slide.file }}" alt="{{ slide.title }}" id="slide-img">
+        <!--Conteneur de la galerie-->
+        <div id="block-galerie" onmouseover="galerieOver()" onmouseout="galerieOut()">
+            <!--galerie-->
+            <div id="galerie">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        {% for galerie in Galerie %}
+                            <div class="d-block img-galerie">
+                                <img src="{{ galerie.file }}" alt="{{ galerie.title }}"
+                                     class="img-galerie" onmouseover="changeImgSlide(event)"/>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="poignet-galerie">
+                <svg id="poignet" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                     fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+                </svg>
+            </div>
+        </div>
+        <!--cadre de la slide-->
+        <div id="barre-haut"></div>
+        <div id="cadre-bas">
+            <div class="d-flex justify-content-end ">
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                         fill="currentColor" class="bi bi-facebook qatext ms-3 me-3" viewBox="0 0 16 16">
+                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                    </svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                         fill="currentColor" class="bi bi-instagram qatext ms-3 me-3" viewBox="0 0 16 16">
+                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                    </svg>
+                </a>
+            </div>
+            <div id="barre-bas"></div>
+        </div>
+    </div>
+    <div {{ react_component('imgDesign/Img3Design') }} ></div>
+    <div {{ react_component('imgDesign/Img2Design') }} ></div>
+    <div {{ react_component('imgDesign/Img1Design') }} ></div>
+    <div class="réducteur-space pb-4"><!--Réduction de la surface-->
+        <!--Spécialité de qa-->
+        <div style="width:100vw;" class="hor-center p-0 mb-5 bg-transparent" >
+            <div class="d-flex banière-chef" {{ react_component('baniere/Speciality') }} ></div>
+        </div>
+        <!--source recette & menu spéciale-->
+        <div class="d-flex mt-5 bg-secondary justify-content-center text-center qatext p-5">
+            <div id="recettes">
+                <p>
+                <h1 className="qatitle fs-1 pb-2">Nos Recettes</h1>
+                Vous les connaissiez peut-être sous le nom de « composants sans état » (Stateless (Functional) Components
+                ou SFC, NdT). Comme nous avons maintenant la possibilité d’utiliser l’état local React dans ces composants,
+                nous préférerons le terme « fonctions composants ».
+                Les Hooks ne fonctionnent pas dans les classes. Mais vous pouvez les utiliser pour éviter d’écrire des classes.
+                </p>
+            </div>
+        </div>
+        <!--Menu-->
+        {% include 'section/_menu.html.twig' with {'Menu':Menu, 'descente':" "} %}
+        <!--Environnement de qa (plage)-->
+        <div style="width:100vw;" class="hor-center bg-transparent p-0" >
+            <div class="d-flex hor-center banière-env" {{ react_component('baniere/Environnement') }} ></div>
+        </div>
+        <!--Quelque mots du jour de Quai Antique-->
+        <div id="qaSpeach" class="container-fluid">
+            <div class="row bg-transparent" {{ react_component('msg/MessageDay') }}></div>
+        </div>
+        <!--Voyage avec qa-->
+        <div style="width:100vw;" class="hor-center bg-transparent p-0" >
+            <div class="d-flex hor-center banière-voy justify-content-center align-items-center
+             text-center qatext p-5 bg-secondary" {{ react_component('baniere/Voyage') }} ></div>
+        </div>
+        <!--Avis de la clientèle-->
+        <div id="Avis-space" class="container-fluid">
+            <div class="row">
+                <div class="col-md m-2 message p-2">
+                    <div id="qaAvis" class="text-center p-1 qatitle">Avis</div>
+                    <div class="d-flex justify-content-center m-3 qatext"
+                         onmouseover="veutSavoir()" onmouseout="outVeutSavoir()">
+                        Qui peut noter ?
+                        <!--svg point d'intérogation-->
+                        <svg class="ms-2 mt-1" width="15" height="15" viewBox="0 0 15 15" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="7.5" cy="7.5" r="7" stroke="white"/>
+                                <path d="M5.2257 6.47417C4.5531 5.94102 4.47198 4.42366 5.78781 3.1857C7.13687 1.91647 9.1204 2.23298 9.83499 3.47417C10.5657 4.7434 9.83499 6.47417 8.54214 7.0511C7.36875 7.57472 7.53035 8.65207 7.53035 9.24341C7.53035 10.3973 7.53035 11.7819 7.53035 11.2626" stroke="white"/>
+                                <circle cx="7.5625" cy="12.5625" r="0.5625" fill="white"/>
+                        </svg>
+                        <!--info bulle-->
+                        <div id="veutSavoir" class="d-block m-2 p-2 text-center qatext message message-user visually-hidden">
+                            Seul les utilsateurs qui ont déjà éffectué une réservation peuvent noter.
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-3">
+                        <button type="button" class="btn qabtn" data-bs-toggle="modal" data-bs-target="#user_note">
+                            Noter
+                        </button>
+                    </div>
+                    <!--Quelques mots de la clientèle-->
+                    <div>
+                        <div class="text-center qatitle p-1">Témoignages</div>
+                        {% for avis in Avis %}
+                            <div>
+                                <div class="qaNav">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                         fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                    </svg>
+                                    {{ avis.firstname }} {{ avis.lastname }}
+                                </div>
+                                <div class="w-75 ms-5 p-2 message message-user qatext text-center">
+                                    {{ avis.msg_note }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md m-2">
+                    <div id="note-space" class="p-0">
+                        <div>
+                            <svg id="note-svg" width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="200" cy="200" r="150" fill="transparent" stroke="#75E6DA" stroke-width="80"/>
+                                <path d="M200 50 A 150 150, 0, {{ arc.LA }}, 0, {{ arc.PA }}"
+                                      stroke="#189AB4" stroke-width="80" fill="transparent" />
+                            </svg>
+                        </div>
+                        <div id="note" class="text-center">{{ arc.note }}/5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block modalAccueil %}
+<!--Modal de note-->
+<div class="modal fade" id="user_note" tabindex="-1" aria-labelledby="user_note"
+     data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Merci de nous faire connaitre votre avis</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% if user %}
+                    {% if user.droitNote==0 %}
+                        Vous êtez un administrateur, vous ne pouvez pas notez.
+                    {% else %}
+                        {% if user.state_reservation==0 %}
+                            Désolé, vous ne pouvez pas noter!
+                        {% else %}
+                        <form action="/user/note/{{ user.id }}" method="POST">
+                            <div {{ react_component('action/SendNote',{'msg':user.msg_note}) }} ></div>
+                        </form>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    Veuillez vous connectez pour pouvoir nous donner votre avis.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
