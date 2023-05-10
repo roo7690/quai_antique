@@ -1,0 +1,40 @@
+<div class="modal fade" id="produit_{{ produit.id }}" tabindex="-1" aria-labelledby="produit_{{ produit.id }}"
+    data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">{{ produit.title }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/produit/update/{{ produit.id }}"
+                      class="row g-2" method="POST">
+                    <div class="col-auto">
+                        <label for="titreProduit{{ produit.id }}" class="form-label">Titre</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="titreProduit{{ produit.id }}" name="titreProduit{{ produit.id }}"
+                               value="{{ produit.title }}" class="form-control">
+                    </div>
+                    <div>
+                        <label for="descriptionProduit{{ produit.id }}" class="form-label">Description</label>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" id="descriptionProduit{{ produit.id }}"
+                               value="{{ produit.description }}" name="descriptionProduit{{ produit.id }}">
+                    </div>
+                    <div class="col-auto">
+                        <label for="prixProduit{{ produit.id }}" class="form-label">Prix</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" id="prixProduit{{ produit.id }}" name="prixProduit{{ produit.id }}"
+                               value="{{ produit.prix }}" step="0.01" class="form-control" style="width:90px;">
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <input type="submit" class="btn qabtn" value="Editer">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
