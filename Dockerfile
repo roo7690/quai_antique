@@ -23,11 +23,12 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 RUN composer install --optimize-autoloader --no-dev --no-scripts \
+    && bin/console cache:clear \
     && chown -R webuser:webgroup /var/www/html \
     && rm -rf /etc/cont-init.d/* \
     && cp .fly/nginx-default /etc/nginx/sites-available/default \
     && cp .fly/entrypoint.sh /entrypoint \
-    && cp .fly/FlySymfonyRuntime.php /var/www/html/src/FlySymfonyRuntime.php \
+    #&& cp .fly/FlySymfonyRuntime.php /var/www/html/src/FlySymfonyRuntime.php \
     && chmod +x /entrypoint
 
 FROM node:${NODE_VERSION} as build_frontend_assets
@@ -42,7 +43,7 @@ COPY .. .
 
 FROM base
 
-#COPY --from=build_frontend_assets /app/public/bui /var/www/html/public/
+#COPY --from=build_frontend_assets /app/public/build /var/www/html/public/
 
 EXPOSE 8080
 

@@ -1,7 +1,6 @@
 # flyctl launch added from .gitignore
 
 ###> symfony/framework-bundle ###
-.env.local.php
 config\secrets\prod\prod.decrypt.private.php
 var
 vendor
@@ -12,9 +11,6 @@ node_modules
 **\npm-debug.log
 **\yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-
-###> deploy
-###< deploy
 
 # flyctl launch added from vendor\psr\container\.gitignore
 vendor\psr\container\**\composer.lock

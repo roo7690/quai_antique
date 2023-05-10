@@ -14,14 +14,10 @@ processes = []
   app = ""
 
 [env]
-  DB_CONNECTION = "mysql"
-  DB_HOST="127.0.0.1"
-  DB_PORT=13306
-  DB_DATABASE= "quai_antique"
-
+  APP_ENV = "prod"
+  APP_DEBUG= 0
   #APP_RUNTIME = '\App\FlySymfonyRuntime'
-
-
+  
 [experimental]
   auto_rollback = true
 
